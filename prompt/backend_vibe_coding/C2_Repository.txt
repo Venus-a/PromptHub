@@ -14,6 +14,31 @@
 - 选项描述要清晰说明每个选择的特点
 - **默认支持多选**，除非该问题天然是单选（如确认类问题）
 
+## 重要：多选必须设置 multiple 参数
+需要多选的问题必须在问题对象中添加 `"multiple": true`，否则只能单选。
+
+### 正确示例（多选）
+根据上下文（数据模型、API需求等）动态生成选项：
+```
+{
+  "questions": [
+    {
+      "header": "查询方法",
+      "question": "请选择需要实现的查询方法（可多选）",
+      "multiple": true,
+      "options": [
+        {"label": "按ID查询", "description": "findById"},
+        {"label": "条件查询", "description": "findByConditions"},
+        {"label": "分页查询", "description": "findPaginated"},
+        {"label": "计数查询", "description": "count"},
+        {"label": "存在性检查", "description": "exists"}
+      ]
+    }
+  ]
+}
+```
+注意：不要添加"自定义"选项，question 工具会自动提供"自定义"输入框。
+
 ---
 
 # 步骤 1：读取文档
@@ -38,6 +63,21 @@
 
 ---
 
+# 步骤 3.5：生成测试配置（重要！）
+
+**如果项目中不存在以下文件，需要生成它们：**
+
+1. **pytest.ini** 或 **pyproject.toml** - pytest 配置
+2. **tests/conftest.py** - 共享 fixture 配置（数据库初始化、event_loop 等）
+
+使用 question 工具确认：
+- 直接生成配置
+- 先看看有哪些配置选项
+
+生成后展示配置文件内容并暂停等待确认。
+
+---
+
 # 步骤 4：生成测试代码
 
 先在 `tests/repositories/` 生成测试代码。
@@ -59,6 +99,17 @@
 使用 question 工具确认：
 - 确认，运行测试
 - 先看看测试命令选项
+
+---
+
+# 步骤 6.5：生成测试报告
+
+运行测试后，手动创建 Markdown 测试报告到 `tests/reports/C2_repository_report.md`，包含：
+- 测试摘要（总测试数、通过、失败）
+- 详细结果（每个测试用例的状态）
+- 覆盖的 Repository 方法
+
+将生成的报告路径告知用户，并询问是否继续。
 
 ---
 

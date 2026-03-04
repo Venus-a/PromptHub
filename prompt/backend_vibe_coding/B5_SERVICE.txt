@@ -14,6 +14,31 @@
 - 选项描述要清晰说明每个选择的特点
 - **默认支持多选**，除非该问题天然是单选（如确认类问题）
 
+## 重要：多选必须设置 multiple 参数
+需要多选的问题必须在问题对象中添加 `"multiple": true`，否则只能单选。
+
+### 正确示例（多选）
+根据上下文（服务设计文档、API列表等）动态生成选项：
+```
+{
+  "questions": [
+    {
+      "header": "CRUD方法",
+      "question": "请选择需要实现的CRUD方法（可多选）",
+      "multiple": true,
+      "options": [
+        {"label": "create", "description": "创建资源"},
+        {"label": "getById", "description": "按ID查询"},
+        {"label": "getList", "description": "列表查询"},
+        {"label": "update", "description": "更新资源"},
+        {"label": "delete", "description": "删除资源"}
+      ]
+    }
+  ]
+}
+```
+注意：不要添加"自定义"选项，question 工具会自动提供"自定义"输入框。
+
 ---
 
 # 步骤 1：读取文档
@@ -69,16 +94,16 @@
 
 # 阶段衔接
 
-服务层设计完成后，文档生成阶段全部完成，请提示我进入代码生成阶段：
+服务层设计完成后，请提示我进入下一阶段：
 
 ```
 {
   "questions": [
     {
       "header": "下一步",
-      "question": "服务层设计已完成，文档阶段全部完成！接下来你想：",
+      "question": "服务层设计已完成，接下来你想：",
       "options": [
-        {"label": "C1: 数据模型代码", "description": "开始生成数据模型层代码"},
+        {"label": "B6: 测试设计", "description": "开始编写测试设计文档 TEST_DESIGN.md"},
         {"label": "先休息一下", "description": "稍后再继续"}
       ]
     }
@@ -86,7 +111,7 @@
 }
 ```
 
-如果我选择 C1，请提示我读取 `C1_Models.txt` 并粘贴到 AI 中执行。
+如果我选择 B6，请提示我读取 `B6_TEST.txt` 并粘贴到 AI 中执行。
 
 ---
 

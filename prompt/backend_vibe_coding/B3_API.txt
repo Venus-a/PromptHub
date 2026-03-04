@@ -14,6 +14,31 @@
 - 选项描述要清晰说明每个选择的特点
 - **默认支持多选**，除非该问题天然是单选（如确认类问题）
 
+## 重要：多选必须设置 multiple 参数
+需要多选的问题必须在问题对象中添加 `"multiple": true`，否则只能单选。
+
+### 正确示例（多选）
+根据上下文（API 设计文档、实体列表等）动态生成选项：
+```
+{
+  "questions": [
+    {
+      "header": "CRUD接口",
+      "question": "请选择需要实现的CRUD接口（可多选）",
+      "multiple": true,
+      "options": [
+        {"label": "创建", "description": "POST - 资源创建"},
+        {"label": "查询", "description": "GET - 资源查询"},
+        {"label": "更新", "description": "PUT/PATCH - 资源更新"},
+        {"label": "删除", "description": "DELETE - 资源删除"},
+        {"label": "列表", "description": "GET - 列表查询"}
+      ]
+    }
+  ]
+}
+```
+注意：不要添加"自定义"选项，question 工具会自动提供"自定义"输入框。
+
 ---
 
 # 步骤 1：读取文档

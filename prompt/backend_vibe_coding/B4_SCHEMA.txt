@@ -14,6 +14,31 @@
 - 选项描述要清晰说明每个选择的特点
 - **默认支持多选**，除非该问题天然是单选（如确认类问题）
 
+## 重要：多选必须设置 multiple 参数
+需要多选的问题必须在问题对象中添加 `"multiple": true`，否则只能单选。
+
+### 正确示例（多选）
+根据上下文（数据模型、技术栈等）动态生成选项：
+```
+{
+  "questions": [
+    {
+      "header": "公共字段",
+      "question": "请选择需要添加的公共字段（可多选）",
+      "multiple": true,
+      "options": [
+        {"label": "创建时间", "description": "created_at"},
+        {"label": "更新时间", "description": "updated_at"},
+        {"label": "创建人", "description": "created_by"},
+        {"label": "更新人", "description": "updated_by"},
+        {"label": "软删除", "description": "deleted_at"}
+      ]
+    }
+  ]
+}
+```
+注意：不要添加"自定义"选项，question 工具会自动提供"自定义"输入框。
+
 ---
 
 # 步骤 1：读取文档

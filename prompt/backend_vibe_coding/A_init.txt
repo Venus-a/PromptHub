@@ -31,6 +31,8 @@
 - tests/api/
 - tests/services/
 - tests/repositories/
+- tests/models/
+- tests/reports/
 
 然后运行：git init
 
@@ -40,10 +42,12 @@
 
 # 步骤 3：询问功能范围
 
-使用 question 工具提问，根据实际情况设计选项：
-- 主要功能（提供常见功能类型选项 + 自定义）
-- 用户量级（小规模/中规模/大规模）
+使用 question 工具提问，根据实际情况设计选项。**必须设置 `"multiple": true` 支持多选**：
+- 主要功能（提供常见功能类型选项，可多选）
+- 用户量级（小规模/中规模/大规模，单选）
 - 明确不做的事情（可多选）
+
+注意：不要添加"自定义"选项，question 工具会自动提供"自定义"输入框。
 
 ---
 
@@ -58,37 +62,42 @@
 使用 question 工具提问，每个类别提供选项 + 自定义选项：
 
 ## 提问格式
+重要：需要多选的问题必须设置 `"multiple": true`
+注意：不要添加"自定义"选项，question 工具会自动提供"自定义"输入框。
 ```
 {
   "questions": [
     {
       "header": "编程语言",
-      "question": "请选择编程语言",
+      "question": "请选择编程语言（可多选）",
+      "multiple": true,
       "options": [
         {"label": "Python 3.10+", "description": "适合快速开发、API服务"},
         {"label": "Java 17+", "description": "适合企业级应用"},
         {"label": "Node.js 18+", "description": "适合前后端统一技术栈"},
-        {"label": "自定义", "description": "输入其他语言"}
+        {"label": "Go", "description": "高性能、并发友好"}
       ]
     },
     {
       "header": "Web框架",
-      "question": "请选择Web框架",
+      "question": "请选择Web框架（可多选）",
+      "multiple": true,
       "options": [
         {"label": "FastAPI", "description": "Python - 高性能、易上手"},
         {"label": "Spring Boot", "description": "Java - 企业级标准"},
         {"label": "Express/Koa", "description": "Node.js - 灵活"},
-        {"label": "自定义", "description": "输入其他框架"}
+        {"label": "Gin", "description": "Go - 高性能、轻量"}
       ]
     },
     {
       "header": "数据库",
-      "question": "请选择数据库",
+      "question": "请选择数据库（可多选）",
+      "multiple": true,
       "options": [
         {"label": "PostgreSQL", "description": "功能丰富、支持JSON"},
         {"label": "MySQL", "description": "广泛使用、结构化数据"},
         {"label": "MongoDB", "description": "文档数据库、灵活"},
-        {"label": "自定义", "description": "输入其他数据库"}
+        {"label": "Redis", "description": "缓存、内存数据库"}
       ]
     }
   ]
@@ -130,7 +139,20 @@
 
 ---
 
-# 步骤 9：最终确认
+# 步骤 9：生成 .env.example
+
+根据技术栈和选择的功能，生成 `.env.example` 环境变量模板并展示给我确认。
+
+常见变量：
+- 数据库连接
+- Redis连接
+- 应用端口
+- 密钥/Token
+- 第三方服务配置
+
+---
+
+# 步骤 10：最终确认
 
 展示所有文件内容后，使用 question 工具确认：
 
